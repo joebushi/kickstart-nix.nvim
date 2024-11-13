@@ -4,10 +4,11 @@ with final.pkgs.lib; let
 
   mkNeovim = pkgs.callPackage ./mkNeovim.nix {};
 
-  all-plugins = 
+  all-plugins =
     with pkgs.vimPlugins; [
       # plugins from nixpkgs go in here.
       # https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins
+      catppuccin-nvim # Theme: https://github.com/catppuccin/nvim
       nvim-treesitter.withAllGrammars
       luasnip # snippets | https://github.com/l3mon4d3/luasnip/
       # nvim-cmp (autocompletion) and extensions
@@ -22,9 +23,9 @@ with final.pkgs.lib; let
       # ^ nvim-cmp extensions
       # git integration plugins
       diffview-nvim # https://github.com/sindrets/diffview.nvim/
-      neogit # https://github.com/TimUntersberger/neogit/
+      # neogit # https://github.com/TimUntersberger/neogit/
       gitsigns-nvim # https://github.com/lewis6991/gitsigns.nvim/
-      vim-fugitive # https://github.com/tpope/vim-fugitive/
+      # vim-fugitive # https://github.com/tpope/vim-fugitive/
       # ^ git integration plugins
       # telescope and extensions
       telescope-nvim # https://github.com/nvim-telescope/telescope.nvim/
@@ -32,8 +33,8 @@ with final.pkgs.lib; let
       # telescope-smart-history-nvim # https://github.com/nvim-telescope/telescope-smart-history.nvim
       # ^ telescope and extensions
       # UI
-      lualine-nvim # Status line | https://github.com/nvim-lualine/lualine.nvim/
-      nvim-navic # Add LSP location to lualine | https://github.com/SmiteshP/nvim-navic
+      # lualine-nvim # Status line | https://github.com/nvim-lualine/lualine.nvim/
+      # nvim-navic # Add LSP location to lualine | https://github.com/SmiteshP/nvim-navic
       statuscol-nvim # Status column | https://github.com/luukvbaal/statuscol.nvim/
       nvim-treesitter-context # nvim-treesitter-context
       # ^ UI
@@ -41,9 +42,9 @@ with final.pkgs.lib; let
       neodev-nvim # adds support for Neovim's Lua API to lua-language-server | https://github.com/folke/neodev.nvim/
       # ^ language support
       # navigation/editing enhancement plugins
-      vim-unimpaired # predefined ] and [ navigation keymaps | https://github.com/tpope/vim-unimpaired/
+      # vim-unimpaired # predefined ] and [ navigation keymaps | https://github.com/tpope/vim-unimpaired/
       eyeliner-nvim # Highlights unique characters for f/F and t/T motions | https://github.com/jinh0/eyeliner.nvim
-      nvim-surround # https://github.com/kylechui/nvim-surround/
+      # nvim-surround # https://github.com/kylechui/nvim-surround/
       nvim-treesitter-textobjects # https://github.com/nvim-treesitter/nvim-treesitter-textobjects/
       nvim-ts-context-commentstring # https://github.com/joosepalviste/nvim-ts-context-commentstring/
       # ^ navigation/editing enhancement plugins
@@ -56,10 +57,14 @@ with final.pkgs.lib; let
       nvim-web-devicons
       vim-repeat
       # ^ libraries that other plugins depend on
+      mini-nvim
+      vim-commentary # https://github.com/tpope/vim-commentary
+      # vim-sleuth
     ]
     ++ (with pkgs.nvimPlugins; [
       # bleeding-edge plugins from flake inputs go in here
-      wf-nvim # keymap hints | https://github.com/Cassin01/wf.nvim
+      nvim-tmux-navigation  # keymap hints | https://github.com/alexghergh/nvim-tmux-navigation
+      # wf-nvim # keymap hints | https://github.com/Cassin01/wf.nvim
     ]);
 
   extraPackages = with pkgs; [

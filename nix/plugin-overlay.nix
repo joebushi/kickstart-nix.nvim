@@ -7,6 +7,7 @@
 in {
   nvimPlugins = {
     # Add bleeding edge plugins from the flake inputs here.
-    wf-nvim = mkNvimPlugin inputs.wf-nvim "wf.nvim";
+    nvim-tmux-navigation = mkNvimPlugin inputs.nvim-tmux-navigation "tmux.nvim";
+    # wf-nvim = mkNvimPlugin inputs.wf-nvim "wf.nvim";
   };
 }

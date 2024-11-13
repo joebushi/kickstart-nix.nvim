@@ -24,6 +24,7 @@ opt.lazyredraw = true
 opt.showmatch = true -- Highlight matching parentheses, etc
 opt.incsearch = true
 opt.hlsearch = true
+-- opt.iskeyword:append('-') -- consider string-string as whole word
 
 opt.spell = true
 opt.spelllang = 'en'
@@ -40,7 +41,13 @@ opt.splitright = true
 opt.splitbelow = true
 opt.cmdheight = 0
 
+opt.ttyfast = true -- faster scrolling
+opt.list = true
+opt.listchars = 'tab:→ ,nbsp:␣,space:·,trail:·'
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+
+-- Preview substitutions live, as you type!
+-- opt.inccommand = 'nosplit'
 
 -- Configure Neovim diagnostic messages
 
@@ -96,8 +103,18 @@ vim.diagnostic.config {
 }
 
 g.editorconfig = true
+g.mapleader = ' '
+g.maplocalleader = ' '
 
-vim.opt.colorcolumn = '100'
+opt.textwidth = '80'
+opt.colorcolumn = '+1'
+opt.scrolloff = 6
+opt.mouse = 'a'
+
+-- TODO: get correct path to user home w/out username
+-- ${config.users.users.myUser.home}
+-- prevents truncated yanks, deletes, etc.
+-- opt.viminfo = "'100,n$HOME/.vim/files/info/viminfo"
 
 -- Native plugins
 cmd.filetype('plugin', 'indent', 'on')

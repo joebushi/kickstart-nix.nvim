@@ -34,11 +34,27 @@
         "type": "github"
       }
     },
+    "nvim-tmux-navigation": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1707171454,
+        "narHash": "sha256-CxAgQSbOrg/SsQXupwCv8cyZXIB7tkWO+Y6FDtoR8xk=",
+        "owner": "alexghergh",
+        "repo": "nvim-tmux-navigation",
+        "rev": "4898c98702954439233fdaf764c39636681e2861",
+        "type": "github"
+      },
+      "original": {
+        "owner": "alexghergh",
+        "repo": "nvim-tmux-navigation",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
-        "wf-nvim": "wf-nvim"
+        "nvim-tmux-navigation": "nvim-tmux-navigation"
       }
     },
     "systems": {
@@ -53,22 +69,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "wf-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1694084982,
-        "narHash": "sha256-C5y171FySVSZ6iGE1lDBR/l6gly9PiY9EKy4CVEfqY4=",
-        "owner": "Cassin01",
-        "repo": "wf.nvim",
-        "rev": "d7de32119e933ddd4c006324475d487c87b8d80b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Cassin01",
-        "repo": "wf.nvim",
         "type": "github"
       }
     }

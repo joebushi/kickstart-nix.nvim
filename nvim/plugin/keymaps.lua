@@ -17,10 +17,10 @@ end, auto_hlsearch_namespace)
 keymap.set('n', 'Y', 'y$', { silent = true, desc = 'yank to end of line' })
 
 -- Buffer list navigation
-keymap.set('n', '[b', vim.cmd.bprevious, { silent = true, desc = 'previous buffer' })
-keymap.set('n', ']b', vim.cmd.bnext, { silent = true, desc = 'next buffer' })
-keymap.set('n', '[B', vim.cmd.bfirst, { silent = true, desc = 'first buffer' })
-keymap.set('n', ']B', vim.cmd.blast, { silent = true, desc = 'last buffer' })
+-- keymap.set('n', '[b', vim.cmd.bprevious, { silent = true, desc = 'previous buffer' })
+-- keymap.set('n', ']b', vim.cmd.bnext, { silent = true, desc = 'next buffer' })
+-- keymap.set('n', '[B', vim.cmd.bfirst, { silent = true, desc = 'first buffer' })
+-- keymap.set('n', ']B', vim.cmd.blast, { silent = true, desc = 'last buffer' })
 
 -- Toggle the quickfix list (only opens if it is populated)
 local function toggle_qf_list()
@@ -69,6 +69,8 @@ local function cright()
     notify = 'Quickfix list is empty!',
   }
 end
+
+local opts = { silent = true }
 
 keymap.set('n', '[c', cleft, { silent = true, desc = 'cycle quickfix left' })
 keymap.set('n', ']c', cright, { silent = true, desc = 'cycle quickfix right' })
@@ -128,8 +130,21 @@ keymap.set('c', '%%', function()
   end
 end, { expr = true, desc = "expand to current buffer's directory" })
 
-keymap.set('n', '<space>tn', vim.cmd.tabnew, { desc = 'new tab' })
-keymap.set('n', '<space>tq', vim.cmd.tabclose, { desc = 'close tab' })
+keymap.set('n', '<leader>to', vim.cmd.tabnew, { desc = 'new tab' })
+keymap.set('n', '<leader>tn', vim.cmd.tabn, { desc = 'next tab' })
+keymap.set('n', '<leader>tp', vim.cmd.tabp, { desc = 'previous tab' })
+keymap.set('n', '<leader>tx', vim.cmd.tabclose, { desc = 'close tab' })
+
+-- Switch between tabs
+vim.keymap.set('n', '<Right>', function()
+  vim.cmd([[checktime]])
+  vim.api.nvim_feedkeys('gt', 'n', true)
+end)
+
+vim.keymap.set('n', '<Left>', function()
+  vim.cmd([[checktime]])
+  vim.api.nvim_feedkeys('gT', 'n', true)
+end)
 
 local severity = diagnostic.severity
 
@@ -181,5 +196,83 @@ keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'move down half-page and center' })
 keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'move up half-page and center' })
 keymap.set('n', '<C-f>', '<C-f>zz', { desc = 'move down full-page and center' })
 keymap.set('n', '<C-b>', '<C-b>zz', { desc = 'move up full-page and center' })
+
+---------------------
+-- General Keymaps
+---------------------
+
+-- friendly commandline access
+vim.keymap.set('n', ';', ':')
+vim.keymap.set('n', ':', ';')
+vim.keymap.set('v', ';', ':')
+vim.keymap.set('v', ':', ';')
+
+-- friendly visual-mode settings
+-- vim.keymap.set("n", "v", "<C-V>")
+-- vim.keymap.set("n", "<C-V>:", "v")
+-- vim.keymap.set("x", "v", "<C-V>")
+-- vim.keymap.set("x", "<C-V>", "v")
+
+-- TODO: get alt to work for navigating up/down by 7 lines
+vim.keymap.set('n', '<M-j>', '7j')
+vim.keymap.set('n', '<M-k>', '7k')
+
+-- delete single caracter without copying into register
+vim.keymap.set('n', 'X', '"_x')
+
+-- blackhole delete
+vim.keymap.set('n', '<leader>d', '"_d')
+
+-- Stay in indent mode
+vim.keymap.set('v', '<', '<gv', opts)
+vim.keymap.set('v', '>', '>gv', opts)
+
+-- Run shell command
+vim.keymap.set('n', '!', '!!$SHELL<CR>')
+vim.keymap.set('n', '<leader>X', '<cmd>!chmod +x %<CR>', opts)
+
+-- Quickly play macro from register q
+vim.keymap.set('n', 'Q', '@q')
+vim.keymap.set('v', 'Q', ':norm @q<cr>')
+-- Select all text in buffer
+vim.keymap.set('n', '<leader>a', 'ggVG')
+-- Select previous pasted/yanked text
+vim.keymap.set('n', 'gV', '`[v`]')
+
+-- Copy to system clipboard
+vim.keymap.set('v', '<leader>y', '"+y')
+-- Copy to system clipboard, hightlight after copy
+vim.keymap.set('v', '<C-y>', '"+ygv')
+
+-- Show registers
+vim.keymap.set('n', '<leader>r', ':registers<CR>')
+
+-- Copy line without linefeed keeping cursor location
+vim.keymap.set('n', '<leader>y', 'mz0y$`z')
+
+-- Keep cursor location consistent search and join
+-- vim.keymap.set("n", "n", "nzzzv")
+-- vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set('n', 'J', 'mzJ`z')
+
+-- Change/delete/yank in line
+vim.keymap.set('o', 'il', ':<c-u>normal! $v0<CR>')
+
+-- Make b inclusive
+vim.keymap.set('o', 'b', 'vb')
+
+-- tcsh-like cli navigation
+vim.keymap.set('c', '<C-a>', '<home>')
+vim.keymap.set('c', '<C-e>', '<end>')
+vim.keymap.set('c', '<C-p>', '<up>')
+vim.keymap.set('c', '<C-n>', '<down>')
+vim.keymap.set('c', '<C-b>', '<left>')
+vim.keymap.set('c', '<C-f>', '<right>')
+vim.keymap.set('c', '<C-d>', '<Del>')
+vim.keymap.set('c', '<C-h>', '<BS>')
+vim.keymap.set('c', '<C-k>', '<C-f>D<C-c><C-c>:<Up>')
+vim.keymap.set('c', '<M-b>', '<S-left>')
+vim.keymap.set('c', '<M-f>', '<S-right>')
+vim.keymap.set('c', '<M-BS>', '<C-w>')
 
 return M

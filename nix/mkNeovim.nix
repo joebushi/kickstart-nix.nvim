@@ -8,7 +8,7 @@ with lib;
     appName ? null, # NVIM_APPNAME - Defaults to 'nvim'
     plugins ? [], # List of plugins
     devPlugins ? [], # List of dev plugins (will be bootstrapped)
-    extraPackages ? [], # Extra runtime dependencies (e.g. ripgrep, ...)
+    extraPackages ? [ ripgrep ], # Extra runtime dependencies (e.g. ripgrep, ...)
     # The below arguments can typically be left as their defaults
     wrapRc ? true, # Wrap the init.lua?
     resolvedExtraLuaPackages ? [], # Additional lua packages (not plugins)
